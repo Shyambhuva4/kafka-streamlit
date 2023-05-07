@@ -16,8 +16,8 @@ def main() -> None:
     producer.flush()
 
 
-if __name__ == "__main__":
-    try:
-        main()
-    except KafkaError as error:
-        print(error)
+
+import time
+while True:
+    main()
+    time.sleep(5)
