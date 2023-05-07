@@ -11,19 +11,13 @@ def main() -> None:
         "ts-to-analyze",
         bootstrap_servers="localhost:9093",
     )
-    # producer = KafkaProducer(
-    #     bootstrap_servers="localhost:9093",
-    #     value_serializer=lambda msg: json.dumps(msg).encode(),
-    # )
+   
     producer = KafkaProducer(
         bootstrap_servers="localhost:9093",
         value_serializer=lambda msg: json.dumps(msg.decode()).encode(),
     )
 
-    # for message in consumer:
-    #     description = pd.read_csv(BytesIO(message.value)).describe().to_dict()
-    #     producer.send("ts-analysis", description)
-
+ 
     for message in consumer:
         df = pd.read_csv(BytesIO(message.value))
         serialized_df = df.to_csv().encode()
